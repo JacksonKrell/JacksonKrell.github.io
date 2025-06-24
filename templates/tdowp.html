@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='ico.png') }}">
+    <meta charset="UTF-8">
+    <title>The Tops</title>
+    <style>
+
+        a {
+        color: black;             
+        text-decoration: none;   
+        font-weight: bold;
+        }
+
+        a:hover {
+        color: black;              /* Changes color on hover */
+        text-decoration: underline;
+        }
+
+        a:visited {
+            color: black;          
+        }
+
+        a:active {
+            color: black;            
+        }
+        body{
+            background-color: black;
+            
+        }
+        h1{
+            color:grey;
+            text-align:center;
+            font-style: italic;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            background-color: black;
+        }
+
+        .grid-item {
+            background-color: grey;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .grid-item img {
+            width: 250px;
+            height: 250px;
+            object-fit: cover; 
+            border-radius: 6px;
+        }
+        .grid-item input[type=text] {
+            border: 2px solid grey;
+            border-radius: 4px;
+            width:3ch;
+            
+        }
+        .grid-item input[type=text] :focus {
+            border: none;
+           
+            outline: none;
+            
+        }
+
+        button{
+            border: 2px solid grey;
+            border-radius: 4px;
+            color:white;
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align:center;" >music</h1>
+    <a style="color: white;"href="/music?sort=year">Year</a> 
+    <a style="color: white;"href="/music?sort=artist">Artist</a>
+    <a style="color: white;"href="/music?sort=rating">Rating</a>
+    <a style="color: white;"href="/music?sort=default">Default</a>
+    <form method="POST" action="/artist">
+        <input type="text" placeholder="Search artists" name="artist">
+        <button type="submit">Search</button>
+    </form>
+    <div class="grid-container">
+        {% for music in music_list %}
+        <div class="grid-item">
+            <img src="{{ url_for('static', filename='img_db/' + music.img) }}" alt="{{ music.album }}">
+            <h3><a href="/artist/{{ music.artist }}">{{ music.artist }}</a></h3>
+            <p><strong>{{ music.album }}</strong> ({{ music.year }})</p>
+            <p>Rating: {{ music.rating }}</p>
+            <form method="POST" action="/rate">
+                <input type="hidden" name="music_id" value="{{ music.album }}">
+                
+                <label for="rating"></label>
+                <input type="text" id="rating" name="rating"  required>
+              
+                <button type="submit">CR</button>
+              </form>
+            <p>Origin: {{ music.origin }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

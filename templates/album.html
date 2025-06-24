@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='ico.png') }}">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ album }} Tops Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: black;
+    }
+
+    header {
+      background-color: black;
+      color: grey;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .menu-toggle {
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: none;
+    }
+
+    nav {
+      display: flex;
+      gap: 1rem;
+    }
+
+    nav a {
+      color: grey;
+      text-decoration: none;
+    }
+
+    .content {
+      padding: 2rem;
+    }
+
+    .info-section {
+      background: grey;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    img {
+            width: 250px;
+            height: 250px;
+            object-fit: cover; 
+            border-radius: 6px;
+        }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>album Page for {{ album }}</h1>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    <nav id="navbar">
+        <form method = "get" action="{{url_for('music')}}">
+            <button type = sumbit>home</button>
+        </form>
+    </nav>
+  </header>
+
+  <div class="content">
+
+    <div class="info-section" id="year">
+      <h2>Albums</h2>
+      
+       
+        <img src="{{ url_for('static', filename='img_db/' + img) }}" alt="{{ img }}">
+        <form method="POST" action="/rate">
+            <input type="hidden" name="music_id" value="{{ album }}">
+            
+            <label for="rating"></label>
+            <input type="text" id="rating" name="rating"  required>
+          
+            <button type="submit">CR</button>
+          </form>
+       
+
+      
+    </div>
+
+
+
+  </div>
+</body>
+</html>

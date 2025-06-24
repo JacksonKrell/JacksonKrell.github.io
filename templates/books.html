@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='ico.png') }}">
+    <meta charset="UTF-8">
+    <title>The Tops</title>
+    <style>
+
+        a {
+        color: black;             
+        text-decoration: none;   
+        font-weight: bold;
+        }
+
+        a:hover {
+        color: black;              /* Changes color on hover */
+        text-decoration: underline;
+        }
+
+        a:visited {
+            color: black;          
+        }
+
+        a:active {
+            color: black;            
+        }
+        body{
+            background-color: black;
+            
+        }
+        h1{
+            color:grey;
+            text-align:center;
+            font-style: italic;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            background-color: black;
+        }
+
+        .grid-item {
+            background-color: grey;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .grid-item img {
+            width: 150px;
+            height: 250px;
+            object-fit: cover; 
+            border-radius: 6px;
+        }
+        .grid-item input[type=text] {
+            border: 2px solid grey;
+            border-radius: 4px;
+            width:3ch;
+            
+        }
+        .grid-item input[type=text] :focus {
+            border: none;
+           
+            outline: none;
+            
+        }
+
+        button{
+            border: 2px solid grey;
+            border-radius: 4px;
+            color:white;
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align:center;">books</h1>
+    <a style="color: white;"href="/books?sort=year">Year</a> 
+    <a style="color: white;"href="/books?sort=author">Author</a>
+    <a style="color: white;"href="/books?sort=rating">Rating</a>
+    <a style="color: white;"href="/books?sort=default">Default</a>
+    <form method="POST" action="/author">
+        <input type="text" placeholder="Search authors" name="author">
+        <button type="submit">Search</button>
+    </form>
+    <div class="grid-container">
+        {% for books in books_list %}
+        <div class="grid-item">
+            <img src="{{ url_for('static', filename='book_db/' + books.img) }}" alt="{{ books.book }}">
+            <h3><a href="/author/{{ books.author }}">{{ books.author }}</a></h3>
+            <p><strong>{{ books.book }}</strong> ({{ books.year }})</p>
+            <p>Rating: {{ books.rating }}</p>
+            <form method="POST" action="/rate">
+                <input type="hidden" name="books_id" value="{{ books.book }}">
+                
+                <label for="rating"></label>
+                <input type="text" id="rating" name="rating"  required>
+              
+                <button type="submit">CR</button>
+              </form>
+            <p>Origin: {{ books.origin }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
