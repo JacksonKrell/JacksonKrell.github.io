@@ -10,10 +10,7 @@ def favicon():
 app.config['DEBUG'] = True
 
 connection = mysql.connector.connect(
-host="127.0.0.1",       
-user="root",            
-password="rootpass",  
-database="testdb"   
+
 ) 
 
 @app.route("/")
