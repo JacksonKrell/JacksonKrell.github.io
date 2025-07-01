@@ -3,10 +3,7 @@ from bs4 import BeautifulSoup
 from dictionary import get_city_by_artist,artists_name_ver, get_img
 
 connection = mysql.connector.connect(
-    host="127.0.0.1",       
-    user="root",            
-    password="rootpass",  
-    database="testdb"   
+  
 )
 
 cursor = connection.cursor()
