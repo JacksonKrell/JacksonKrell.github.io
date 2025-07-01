@@ -62,10 +62,7 @@ def artist(artist_name):
 def rate():
 
     connection = mysql.connector.connect(
-    host="127.0.0.1",       
-    user="root",            
-    password="rootpass",  
-    database="testdb"   
+    
     ) 
     album = request.form['music_id']
     new_rating = request.form['rating']
@@ -85,10 +82,7 @@ def rate():
 @app.route('/album', methods=['POST'])
 def album():
     connection = mysql.connector.connect(
-        host="127.0.0.1",       
-        user="root",            
-        password="rootpass",  
-        database="testdb"   
+    
     ) 
     album=request.form['music_id']
     print(album)
@@ -120,10 +114,7 @@ def artist_redirect():
 @app.route("/books")
 def books():
     connection = mysql.connector.connect(
-        host="127.0.0.1",       
-        user="root",            
-        password="rootpass",  
-        database="testdb"   
+
     ) 
     cursor = connection.cursor(dictionary=True)
     
